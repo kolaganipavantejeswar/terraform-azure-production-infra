@@ -1,55 +1,79 @@
-Production-Ready Azure Infrastructure using Terraform
 
-📖 Overview
 
-This project demonstrates how to provision Azure infrastructure using Terraform following production-ready practices. The goal was not just to create resources, but to structure the project in a clean, modular, and enterprise-friendly way.
+# Production-Ready Azure Infrastructure using Terraform
 
-The implementation includes remote state management, lifecycle protection, reusable modules, and proper folder organization to simulate a real-world Infrastructure as Code (IaC) setup.
+## 📖 Overview
 
-🏗 Architecture
+This project provisions Azure infrastructure using Terraform following production-ready practices such as:
 
-The infrastructure provisions:
+- Remote backend configuration
+- State locking
+- Lifecycle protection
+- Modular architecture
+- Clean folder structure
 
-Azure Resource Group
+The goal was to simulate a real-world enterprise Infrastructure as Code (IaC) setup.
 
-Virtual Network (implemented as a reusable module)
+---
 
-Subnet inside the VNet
+## 🏗 Architecture
 
-Storage Account with lifecycle protection
+Resources Provisioned:
 
-Remote backend using Azure Blob Storage
+- Azure Resource Group 
+- Virtual Network (via reusable module) 
+- Subnet 
+- Storage Account 
+- Remote Backend (Azure Blob Storage)
 
-Architecture Flow
-Terraform
-   ↓
-Azure Resource Manager
-   ↓
-Resource Group
-   ↓
-VNet → Subnet
-   ↓
-Storage Account
+### Architecture Flow
 
-The Virtual Network and Subnet are implemented inside a dedicated module to promote reusability and clean architecture.
+Terraform 
+↓ 
+Azure Resource Manager 
+↓ 
+Resource Group 
+↓ 
+VNet → Subnet 
+↓ 
+Storage Account 
 
-🔐 Remote Backend Configuration
+---
 
-Terraform state is stored in Azure Blob Storage instead of locally.
+## 📂 Project Structure
 
-This ensures:
+terraform-azure-production-infra/
+│
+├── backend.tf
+├── main.tf
+├── providers.tf
+├── variables.tf
+├── terraform.tfvars
+├── outputs.tf
+├── README.md
+│
+└── modules/
+└── vnet/
+├── main.tf
+├── variables.tf
+└── outputs.tf
 
-Centralized state management
 
-State locking to prevent concurrent modification
+---
 
-Versioning enabled for recovery
+## 🔐 Remote Backend
 
-Soft delete enabled for protection against accidental deletion
+- Azure Storage Account
+- Blob container for state
+- State locking enabled
+- Blob versioning enabled
+- Soft delete enabled
 
-Backend configuration is separated into backend.tf to clearly distinguish infrastructure logic from state management configuration.
+This ensures centralized and secure state management.
 
-🧱 Modular Design
+---
+
+## 🛡 Lifecycle Protection
 
 The network components are implemented inside:
 
@@ -71,76 +95,69 @@ Lifecycle Protection
 
 Critical resources such as the Storage Account include lifecycle rules:
 
+Critical resources use:
+
 lifecycle {
-  prevent_destroy = true
+prevent_destroy = true
 }
 
-This prevents accidental deletion during terraform destroy or forced replacement scenarios, adding a production safety layer.
 
-⚙️ How to Run
+This prevents accidental deletion of important resources.
 
-Initialize Terraform
+---
 
+## ⚙️ How to Run
+
+```bash
 terraform init
-
-Format code
-
 terraform fmt
-
-Validate configuration
-
 terraform validate
-
-Review execution plan
-
 terraform plan
-
-Apply infrastructure
-
 terraform apply
 
 🧠 Concepts Demonstrated
 
-This project demonstrates:
-
 Infrastructure as Code (IaC)
 
-Dependency graph-based execution
+Dependency graph execution
 
 Remote backend configuration
 
-State locking and versioning
+State locking
 
 Drift detection
 
-Lifecycle rule management
+Modular Terraform design
 
-Modular Terraform architecture
+Lifecycle rules
 
-Clean enterprise folder structure
+Clean enterprise structure
 
 💡 Key Learnings
 
-Through this project, I strengthened my understanding of:
+Understood Terraform backend initialization process
 
-Terraform backend initialization order
+Learned how state locking prevents race conditions
 
-How Terraform builds and executes a dependency graph
+Practiced lifecycle rule management
 
-State management and the risks of state loss
+Explored dependency graph execution model
 
-Lifecycle rule interactions such as prevent_destroy and create_before_destroy
+Implemented modular reusable infrastructure
 
-Safe infrastructure modification practices
+🔄 Future Improvements
 
-🔄 Future Enhancements
+CI/CD integration
 
-Possible improvements include:
+Multi-environment setup
 
-CI/CD pipeline integration (Azure DevOps or GitHub Actions)
+NSG and VM addition
 
 Multi-environment deployment using workspaces
 
 Adding Network Security Groups and virtual machines
 
 Implementing Policy as Code
+
+Policy as Code integration
+
