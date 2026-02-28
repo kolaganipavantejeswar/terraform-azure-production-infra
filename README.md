@@ -1,4 +1,5 @@
 Production-Ready Azure Infrastructure using Terraform
+
 📖 Overview
 
 This project demonstrates how to provision Azure infrastructure using Terraform following production-ready practices. The goal was not just to create resources, but to structure the project in a clean, modular, and enterprise-friendly way.
@@ -66,7 +67,7 @@ Makes scaling easier in enterprise environments
 
 The root module calls the network module and exposes required outputs.
 
-🛡 Lifecycle Protection
+Lifecycle Protection
 
 Critical resources such as the Storage Account include lifecycle rules:
 
